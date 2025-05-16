@@ -49,7 +49,7 @@ export default class TodosController {
     }
   }
 
-  public async updateFlag({ params, response, request }: HttpContext) {
+  public async updateFlag({ params, response }: HttpContext) {
     const flag = await Todo.find(params.id)
     if (flag) {
       flag.feita = !flag.feita
