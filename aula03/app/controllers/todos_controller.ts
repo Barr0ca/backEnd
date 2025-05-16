@@ -48,4 +48,19 @@ export default class TodosController {
       )
     }
   }
+
+  public async updateFlag({ params, response, request }: HttpContext) {
+    const flag = await Todo.find(params.id)
+    if (flag) {
+      flag.feita = !flag.feita
+      return await flag.save()
+    } else {
+      return response.abort(
+        {
+          message: 'Tarefa não encontrada.',
+        },
+        404
+      )
+    }
+  }
 }
