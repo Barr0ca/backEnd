@@ -14,3 +14,5 @@ router.post('/', '#controllers/todos_controller.create')
 router.delete('/:id', '#controllers/todos_controller.delete')
 router.get('/:id', '#controllers/todos_controller.indexById')
 router.put('/:id', '#controllers/todos_controller.update')
+router.put('/:id/alterar', '#controllers/todos_controller.updateFlag')
+
