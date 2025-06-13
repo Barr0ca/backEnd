@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, beforeSave, column, hasMany } from '@adonisjs/lucid/orm'
 import Atleta from './atleta.js'
 import Equipe from './equipe.js'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
@@ -25,4 +25,9 @@ export default class Curso extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  @beforeSave()
+  static async nomeEmMinusculo(curso: Curso) {
+    curso.nome = curso.nome.toLowerCase()
+  }
 }
