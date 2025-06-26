@@ -19,6 +19,9 @@ export default class Atleta extends BaseModel {
   @column()
   declare genero: AtletaModalidade
 
+  @column()
+  declare cursoId: number
+
   @belongsTo(() => Curso)
   declare curso: BelongsTo<typeof Curso>
 
