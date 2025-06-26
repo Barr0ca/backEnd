@@ -17,7 +17,7 @@ export default class extends BaseSchema {
 
       table.string('nome', 150).notNullable()
       table.enum('genero', ['MASCULINO', 'FEMININO']).notNullable()
-      
+
       table.integer('curso_id').unsigned().references('cursos.id').notNullable()
 
       table.timestamp('created_at')
