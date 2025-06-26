@@ -1,0 +1,37 @@
+import type { HttpContext } from '@adonisjs/core/http'
+import Equipe from '#models/equipe'
+
+export default class EquipesController {
+  public async index({}: HttpContext) {
+    return await Equipe.all()
+  }
+
+  public async store({ request }: HttpContext) {
+    return await Equipe.create(request.only(['nome', 'validado', 'genero', 'cursoId', 'modalidadeId']))
+  }
+
+  public async update({ request, params }: HttpContext) {
+    const equipe = await Equipe.findOrFail(params.id)
+    equipe.merge(request.only(['nome', 'validado', 'genero', 'cursoId', 'modalidadeId']))
+    await equipe.save()
+    return equipe
+  }
+
+  public async destroy({ params }: HttpContext) {
+    const equipe = await Equipe.findOrFail(params.id)
+    await equipe.delete()
+    return equipe
+  }
+
+  public async show({ params }: HttpContext) {
+    return await Equipe.findOrFail(params.id)
+  }
+
+  public async associarAtleta({ params, request }: HttpContext) {
+    // Variável de entrada "atletas" (array de IDs de atletas a serem associados a uma equipe)
+    const equipe = await Equipe.findOrFail(params.id)
+    await equipe.related('atletas').sync(request.input('atletas'))
+    await equipe.load('atletas')
+    return equipe
+  }
+}
