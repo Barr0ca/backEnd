@@ -36,7 +36,9 @@ export default class Equipe extends BaseModel {
   @belongsTo(() => Modalidade)
   declare modalidade: BelongsTo<typeof Modalidade>
 
-  @manyToMany(() => Atleta)
+  @manyToMany(() => Atleta, {
+    pivotTable: 'equipes_atletas',
+  })
   declare atletas: ManyToMany<typeof Atleta>
 
   @column.dateTime({ autoCreate: true })
