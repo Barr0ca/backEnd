@@ -6,3 +6,4 @@ router.resource('/equipe', '#controllers/equipes_controller').except(['edit', 'c
 router.post('/equipe/:id/associar-atletas', '#controllers/equipes_controller.associarAtleta')
 
 router.resource('/atleta', '#controllers/atletas_controller').except(['edit', 'create'])
+router.resource('/modalidade', '#controllers/modalidades_controller').except(['edit', 'create'])
