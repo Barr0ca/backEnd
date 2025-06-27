@@ -23,8 +23,10 @@ export default class EquipesController {
     return equipe
   }
 
-  public async show({ params }: HttpContext) {
-    return await Equipe.findOrFail(params.id)
+  public async show({ params, response }: HttpContext) {
+    const equipe = await Equipe.query().where({id: params.id}).preload('atletas').first()
+    if (equipe) return equipe
+    else return response.status(404)
   }
 
   public async associarAtleta({ params, request }: HttpContext) {
