@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, beforeSave, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, beforeSave, column, hasMany, scope } from '@adonisjs/lucid/orm'
 import Atleta from './atleta.js'
 import Equipe from './equipe.js'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
@@ -30,4 +30,8 @@ export default class Curso extends BaseModel {
   static async nomeEmMinusculo(curso: Curso) {
     curso.nome = curso.nome.toLowerCase()
   }
+
+  static visiveis = scope((query) => {
+    query.where('ativo', '=', true)
+  })
 }
