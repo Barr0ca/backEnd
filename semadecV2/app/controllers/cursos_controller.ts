@@ -3,7 +3,7 @@ import Curso from '#models/curso'
 
 export default class CursosController {
   public async index({}: HttpContext) {
-    return await Curso.all()
+    return await Curso.query().withScopes((scope) => scope.visiveis())
   }
 
   public async store({ request }: HttpContext) {
