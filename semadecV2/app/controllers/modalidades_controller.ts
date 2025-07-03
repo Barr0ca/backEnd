@@ -3,7 +3,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 
 export default class ModalidadesController {
   public async index({}: HttpContext) {
-    return await Modalidade.all()
+    return await Modalidade.query().withScopes((scope) => scope.visiveis())
   }
 
   public async store({ request }: HttpContext) {
