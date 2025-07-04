@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column, manyToMany } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column, manyToMany, scope } from '@adonisjs/lucid/orm'
 import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations'
 import Curso from './curso.js'
 import Equipe from './equipe.js'
@@ -33,4 +33,10 @@ export default class Atleta extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  static vinculoEquipeAtivo = scope((query) => {
+    query.innerJoin('equipes_atletas as ea', 'ea.atleta_id', 'atletas.id')
+    query.where('ea.ativo', '=', true)
+    query.select('atletas.*')
+  })
 }
