@@ -2,8 +2,12 @@ import type { HttpContext } from '@adonisjs/core/http'
 import Atleta from '#models/atleta'
 
 export default class AtletasController {
-  public async index({}: HttpContext) {
-    return await Atleta.all()
+  public async index({ request }: HttpContext) {
+    const consulta = Atleta.query()
+    if (request.input('existeVinculoAtivo') != null) {
+      consulta.withScopes((scope) => scope.vinculoEquipeAtivo())
+    }
+    return await consulta
   }
 
   public async store({ request }: HttpContext) {
